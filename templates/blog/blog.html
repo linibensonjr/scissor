@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if current_user.is_authenticated %}
+  
+<header class="blog-head">
+  <div class="container position-relative px-4 px-lg-5">
+      <div class="center">    
+        <h3>A List of your awesome post</h3>
+      </div>
+  </div>
+</header>  
+
+<div class="container px-4 px-lg-5">
+    {% for post in user_posts %}
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="post-preview">
+          {{post.date_published.strftime('%Y-%m-%d')}}
+          <a href="/post/{{post.id}}">
+            <h2 class="post-title">{{post.title}}</h2>
+          </a>
+          <h4 class="post">{{post.content |truncate(120)}}</h4>
+          <p class="post-meta">
+            Posted by
+            <a href="">{{post.author}}</a>
+          </p>
+        </div>
+        <hr class="my-4" />
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="center">
+    <a href="{{url_for('post')}}"><button type="button" class="btn btn-primary">Add a post</button></a>
+  </div>
+
+{% endif %}
+
+{% endblock content %}

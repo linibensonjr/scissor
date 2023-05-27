@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="blog-head ">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <h1 class="center">Contact</h1>
+      </div>
+    </div>
+  </div>
+
+<div class="container" style="width:50%">
+
+<form action="{{url_for('contact')}}", method="post">
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" name="name" class="form-control" id="name" required>
+        <label for="subject" class="form-label">Subject</label>
+        <input type="text" name="subject" class="form-control" id="subject" required>
+    </div>
+    <div class="mb-3">
+        <label for="message" class="form-label">Message</label>
+        <textarea class="form-control" name="message" id="message" rows="13" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Shoot</button>
+</form>
+</div>
+
+{% endblock content %}

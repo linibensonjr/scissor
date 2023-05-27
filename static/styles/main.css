@@ -1,0 +1,84 @@
+html, body {
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.blog-head {
+    position: relative;
+    margin-bottom: 3rem;
+    padding-top: calc(8rem + 57px);
+    padding-bottom: 8rem;
+    color: white;
+    background-color: #FA9000;
+}
+
+.post-details {
+    font-size:1.2em
+}
+
+.title {
+    text-align: left;
+    font-weight: bold;
+}
+
+.author {
+    color: red;
+    text-align: right;
+}
+
+.message {
+    background-color: red;
+    height: 50px;
+    color: white;
+}
+
+.back {
+    height: 150px;
+    background-color: blue;
+}
+
+.post-banner {
+    text-align: center
+}
+
+.post-detail {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: auto;
+    width: 30%;
+    justify-content: space-evenly;
+}
+
+.center {
+    text-align: center;
+}
+
+form .btn {
+    
+    color: white;
+    border: none;
+    width: 30%;
+    padding: 10px;
+    margin: 5px;
+    text-align: center;
+}
+
+.meta {
+    font-size: 1.2em;
+    padding: 12px;
+}
+
+.picture {
+    height: 160px;
+    background-image: url("https://cdn.pixabay.com/photo/2016/03/23/20/18/post-it-1275586__340.jpg");
+    background-size: cover;
+}
+
+.btn-warning {
+    color: white;
+}
