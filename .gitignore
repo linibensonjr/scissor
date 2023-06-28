@@ -1,0 +1,11 @@
+/venv
+
+.env
+env
+
+.idea/
+
+*.db
+
+migrations/
+.vercel
