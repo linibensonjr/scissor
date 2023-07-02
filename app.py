@@ -19,7 +19,8 @@ app = Flask(__name__)
 migrate = Migrate(app, db)
 
 
-app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///' + os.path.join(base_dir, 'scissor.db')
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('DATABASE_URI')
+# 'sqlite:///' + os.path.join(base_dir, 'scissor.db')
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SECRET_KEY"] = "secret"
 api = (os.environ.get("SENDGRID_API_KEY"))
