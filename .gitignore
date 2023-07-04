@@ -9,3 +9,5 @@ env
 
 migrations/
 .vercel
+
+static/img
