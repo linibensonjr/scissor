@@ -99,14 +99,14 @@ def home():
 #     #     return redirect(url_for('login'))
     return render_template('auth_view/dashboard.html')
 
-@app.route('/post', methods=['GET', 'POST'])
+@app.route('/create', methods=['GET', 'POST'])
 # @login_required
 def post():
     if request.method == "POST":
         title = request.form.get('title')
-        url = request.form.get('url')
+        url = request.form.get('url').strip('https://')
         date_published = datetime.now()
-        gen_code = request.form.get('qrcode')
+        gen_code = True if request.form.get('qrcode') else False
         user = current_user.first_name
         new_url = Scissor(title=title, url=url, scissor_url=generate_scissor_url(url), gen_code=gen_code, date_published=date_published, user=user)
         qr = qrcode.QRCode(
@@ -119,15 +119,15 @@ def post():
         qr.make(fit=True)
 
         img = qr.make_image(fill_color="black", back_color="white")
-        image_path = os.path.join(app.static_folder,'img','{}.png'.format(url.strip('.')))
+        image_path = os.path.join(app.static_folder,'img','sci-{}.png'.format(new_url.id))
         img.save(image_path)
         if new_url is None:
             flash("Error - Your post title or content is empty")
-            return redirect(url_for('post'))
+            return redirect(url_for('create'))
         else:
             db.session.add(new_url)
             db.session.commit()
-            return redirect(url_for('login'))
+            return redirect(url_for('links'))
     return render_template('auth_view/create.html')
 
 @app.route('/qrcodes', methods=['GET'])
@@ -148,9 +148,12 @@ def get_link(url):
     # print(post.url)
     return redirect('https://'+post.url)
 
-# @app.route('/gencode', methods=['POST'])
-def update_qr(id):
-    qr = Scissor.query.filter_by(id=id)
+@app.route('/gencode', methods=['POST'])
+def update_qr():
+    link_id = request.form.get('record_id')
+    print(link_id)
+    qr = Scissor.query.get(link_id)
+    print(qr)
     qr.gen_code = True
     db.session.commit()
 
@@ -182,15 +185,15 @@ def edit_post(id):
 @app.route('/post/<int:id>/delete', methods=['GET', 'POST'])
 @login_required
 def delete_post(id):
-    post = Scissor.query.get_or_404(id)
-    if post.author != current_user.first_name:
+    link = Scissor.query.get_or_404(id)
+    if link.author != current_user.first_name:
         abort(403)
     else:
 
-        db.session.delete(post)
+        db.session.delete(link)
         db.session.commit()
-        flash('Post deleted successfully')
-        return redirect(url_for('blog'))
+        flash('Link deleted successfully')
+        return redirect(url_for('links'))
 
 
 @app.route('/about')
