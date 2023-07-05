@@ -1,14 +1,14 @@
-{% extends 'base.html' %}
+{% extends 'auth_view/base.html' %}
 {% block content %}
-<div class="blog-head">
+<div class="container">
     <div class="row gx-4 gx-lg-5 justify-content-center">
-      <div class="col-md-8 col-lg-6 col-xl-7">
+      <div class="col-md-4 col-lg-4 col-xl-7">
         <h1 class="center">Scissor a URL</h1>
       </div>
     </div>
   </div>
 <div class="container" style="width:50%;">    
-    <form action="/post" method="POST">
+    <form action="/create" method="POST">
         <div class="form-group">
             <label for="url">Url</label>
             <input type="text" name="url" class="form-control" placeholder="https://website.com" required />
@@ -24,7 +24,7 @@
     </form>
 </div>
 
-<form class="flex justify-center items-center">
+<form class="flex justify-center items-center" action="/create" method="POST">
   <div class="space-y-12">
     <div class="border-b border-gray-900/10 pb-12">
       <h2 class="text-base font-semibold leading-7 text-gray-900">Profile</h2>
@@ -75,7 +75,7 @@
 
   <div class="mt-6 flex items-center justify-end gap-x-6">
     <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
-    <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
+    <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Create</button>
   </div>
 </form>
 
