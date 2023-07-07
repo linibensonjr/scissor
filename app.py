@@ -138,51 +138,42 @@ def qrcodes():
 
 @app.route('/<string:url>')
 def get_link(url):
-    post = Scissor.query.filter_by(scissor_url=url).first()
+    redirect_url = Scissor.query.filter_by(scissor_url=url).first()
     print(post)
-    # other_posts = random.sample(Blog.query.all(), 3)
-    # if post:
-    #     return render_template('blog/post_detail.html', post=post, other_posts=other_posts)
-    # else:
-    #     flash('That post no longer exists or was never created')
-    # print(post.url)
-    return redirect('https://'+post.url)
+    return redirect('https://'+redirect_url.url)
 
 @app.route('/gencode', methods=['POST'])
 def update_qr():
     link_id = request.form.get('record_id')
-    print(link_id)
     qr = Scissor.query.get(link_id)
-    print(qr)
     qr.gen_code = True
     db.session.commit()
 
     return redirect('qrcodes')
 
-
-@app.route('/post/<int:id>/edit', methods=['GET', 'POST'])
+@app.route('/url/<int:id>/edit', methods=['GET', 'POST'])
 @login_required
 def edit_post(id):
-    post = Scissor.query.get_or_404(id)
-    if post.author != current_user.first_name:
+    url = Scissor.query.get_or_404(id)
+    if url.author != current_user.first_name:
         flash("You don't have permission to edit this post")
-        return redirect(url_for('get_post', id=post.id))
+        return redirect(url_for('get_post', id=url.id))
 
         # abort(403, "<h1>You don't have permission to edit this post</h1>")
 
     if request.method == 'POST':
         title = request.form.get('title')
         content = request.form.get('content')
-        post.title = title
-        post.content = content
+        url.title = title
+        url.content = content
         db.session.commit()
-        return redirect(url_for('get_post', id=post.id))
+        return redirect(url_for('get_post', id=url.id))
     else:
 
-        return render_template('blog/edit_post.html', post=post)
+        return render_template('blog/edit_post.html', url=url)
 
 
-@app.route('/post/<int:id>/delete', methods=['GET', 'POST'])
+@app.route('/url/<int:id>/delete', methods=['GET', 'POST'])
 @login_required
 def delete_post(id):
     link = Scissor.query.get_or_404(id)
