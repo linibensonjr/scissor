@@ -156,7 +156,7 @@ def update_qr():
 def edit_post(id):
     url = Scissor.query.get_or_404(id)
     if url.author != current_user.first_name:
-        flash("You don't have permission to edit this post")
+        flash("You don't have permission to edit this url")
         return redirect(url_for('get_post', id=url.id))
 
         # abort(403, "<h1>You don't have permission to edit this post</h1>")
