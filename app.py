@@ -278,14 +278,14 @@ def unauthorized():
 if __name__ == '__main__':
     app.run(debug=True)
 
-@app.route('/', methods=['POST', 'GET'])
-def hello_world():
-
-    url = request.form.get('url')
-    sci = generate_scissor_url(url)
-    # return redirect('https://google.com')
-
-    return render_template('index.html', name=sci)
+# @app.route('/', methods=['POST', 'GET'])
+# def hello_world():
+#
+#     url = request.form.get('url')
+#     sci = generate_scissor_url(url)
+#     # return redirect('https://google.com')
+#
+#     return render_template('index.html', name=sci)
 
 @app.route('/red', methods=['POST', 'GET'])
 def red():
